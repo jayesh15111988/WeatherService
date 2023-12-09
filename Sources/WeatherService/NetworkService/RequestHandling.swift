@@ -11,5 +11,5 @@ import Foundation
 //
 //`RequestHandler` is generalized enough to work on potential new `APIRoute`s as well.
 protocol RequestHandling {
-    func request<T: Decodable>(route: APIRoute, completion: @escaping (Result<T, DataLoadError>) -> Void)
+    func request<T: Decodable>(type: T.Type, route: APIRoute, completion: @escaping (Result<T, DataLoadError>) -> Void)
 }

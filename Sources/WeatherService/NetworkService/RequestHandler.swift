@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum DataLoadError: Error {
+public enum DataLoadError: Error {
     case badURL
     case genericError(String)
     case noData
@@ -43,7 +43,7 @@ final class RequestHandler: RequestHandling {
         self.decoder = decoder
     }
 
-    func request<T: Decodable>(route: APIRoute, completion: @escaping (Result<T, DataLoadError>) -> Void) {
+    func request<T: Decodable>(type: T.Type, route: APIRoute, completion: @escaping (Result<T, DataLoadError>) -> Void) {
 
         let task = urlSession.dataTask(with: route.asRequest()) { (data, response, error) in
 
@@ -64,7 +64,7 @@ final class RequestHandler: RequestHandling {
 
             do {
                 let decoder = JSONDecoder()
-                let responsePayload = try decoder.decode(T.self, from: data)
+                let responsePayload = try decoder.decode(type.self, from: data)
                 completion(.success(responsePayload))
             } catch {
                 completion(.failure(.malformedContent))

@@ -8,16 +8,16 @@
 import Foundation
 
 struct Forecast: Decodable {
-    let forecastday: Forecastday
+    let forecastday: [Forecastday]
 }
 
 struct Forecastday: Decodable {
-    let defaultDateString: String
-    let dateTimestamp: String
+    let dateString: String
+    let dateTimestamp: Double
     let forecastData: DayForecastData
 
     enum CodingKeys: String, CodingKey {
-        case defaultDateString = "date"
+        case dateString = "date"
         case dateTimestamp = "date_epoch"
         case forecastData = "day"
     }

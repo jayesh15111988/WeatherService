@@ -15,7 +15,7 @@ struct WeatherData: Decodable {
 
 struct CurrentWeather: Decodable {
     let lastUpdatedDateString: String
-    let lastUpdatedTimestamp: Double
+    let lastUpdatedDateTimestamp: Double
     let temperatureCelsius: Double
     let temperatureFahrenheit: Double
 

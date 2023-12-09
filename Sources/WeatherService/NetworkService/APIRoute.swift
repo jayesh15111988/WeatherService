@@ -7,7 +7,7 @@
 import Foundation
 import CoreLocation
 
-enum WeatherForecastInput {
+public enum WeatherForecastInput {
     case locationName(location: String)
     case coordinates(latitude: CLLocationDegrees, longitude: CLLocationDegrees)
 
@@ -29,7 +29,7 @@ enum APIRoute {
     private var baseURLString: String { "http://api.weatherapi.com/v1/" }
 
     //An API key required to make a call and get the JSON response back
-    private let apiKey = "1b4da9ef35af4cd7b10151607230912"
+    private static let apiKey = "1b4da9ef35af4cd7b10151607230912"
 
     private var url: URL? {
         switch self {
@@ -44,6 +44,7 @@ enum APIRoute {
             return [
                 URLQueryItem(name: "q", value: inputType.queryValue)
             ]
+        }
     }
 
     /// A method to convert given APIRoute case into URLRequest object
@@ -65,4 +66,3 @@ enum APIRoute {
         return URLRequest(url: parametrizedURL)
     }
 }
-
