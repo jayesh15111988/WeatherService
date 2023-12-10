@@ -15,7 +15,7 @@ public enum DataLoadError: Error {
     case invalidResponseCode(Int)
     case decodingError(String)
 
-    func errorMessageString() -> String {
+    public func errorMessageString() -> String {
         switch self {
         case .badURL:
             return "Invalid URL encountered. Please enter the valid URL and try again"

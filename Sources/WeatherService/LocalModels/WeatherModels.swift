@@ -8,35 +8,41 @@
 import Foundation
 
 public struct WSWeatherData {
-    let location: Location
-    let currentTemperature: WSCurrentTemperature
-    let forecasts: [TemperatureForecast]
+    public let location: Location
+    public let currentTemperature: WSCurrentTemperature
+    public let forecasts: [TemperatureForecast]
 
-    struct Location {
+    public struct Location {
         let name: String
         let country: String
     }
 
-    struct TemperatureForecast {
-        let dateTimestamp: Double
-        let dateString: String
-        let maximumTemperatureCelsius: Double
-        let maximumTemperatureFahrenheit: Double
-        let minimumTemperatureCelsius: Double
-        let minimumTemperatureFahrenheit: Double
-        let averageTemperatureCelsius: Double
-        let averageTemperatureFahrenheit: Double
+    public struct TemperatureForecast {
+
+        public let dateTimestamp: Double
+        public let dateString: String
+
+        public let maximumTemperatureCelsius: Double
+        public let maximumTemperatureFahrenheit: Double
+
+        public let minimumTemperatureCelsius: Double
+        public let minimumTemperatureFahrenheit: Double
+
+        public let averageTemperatureCelsius: Double
+        public let averageTemperatureFahrenheit: Double
     }
 }
 
 public struct WSCurrentTemperature {
-    let temperatureCelsius: Double
-    let temperatureFahrenheit: Double
-    let lastUpdateDateTimestamp: Double
-    let lastUpdateDateTimeString: String
+
+    public let temperatureCelsius: Double
+    public let temperatureFahrenheit: Double
+
+    public let lastUpdateDateTimestamp: Double
+    public let lastUpdateDateTimeString: String
 }
 
 public struct WSCurrentWeatherData {
-    let location: Location
-    let temperature: WSCurrentTemperature
+    public let location: Location
+    public let temperature: WSCurrentTemperature
 }

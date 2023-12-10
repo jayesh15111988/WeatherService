@@ -28,7 +28,7 @@ struct CurrentWeather: Decodable {
 }
 
 
-struct Location: Decodable {
+public struct Location: Decodable {
     let name: String
     let country: String
 }

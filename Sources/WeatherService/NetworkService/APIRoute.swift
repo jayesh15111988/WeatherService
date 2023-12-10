@@ -25,26 +25,37 @@ public enum WeatherForecastInput {
 enum APIRoute {
 
     case weatherForecast(input: WeatherForecastInput)
+    case currentWeather(input: WeatherForecastInput)
 
-    private var baseURLString: String { "http://api.weatherapi.com/v1/" }
+    private var baseURLString: String { "https://api.weatherapi.com/v1/" }
 
     //An API key required to make a call and get the JSON response back
     private static let apiKey = "1b4da9ef35af4cd7b10151607230912"
 
     private var url: URL? {
         switch self {
-        case .weatherForecast:
+        case .weatherForecast, .currentWeather:
             return URL(string: baseURLString + "forecast.json")
         }
     }
 
     private var parameters: [URLQueryItem] {
+
+        var queryItems: [URLQueryItem] = [URLQueryItem(name: "key", value: Self.apiKey)]
+
         switch self {
         case .weatherForecast(let inputType):
-            return [
-                URLQueryItem(name: "q", value: inputType.queryValue)
-            ]
+            queryItems.append(contentsOf: [
+                URLQueryItem(name: "q", value: inputType.queryValue),
+                URLQueryItem(name: "days", value: "7")
+            ])
+        case .currentWeather(let inputType):
+            queryItems.append(contentsOf: [
+                URLQueryItem(name: "q", value: inputType.queryValue),
+                URLQueryItem(name: "days", value: "1")
+            ])
         }
+        return queryItems
     }
 
     /// A method to convert given APIRoute case into URLRequest object
