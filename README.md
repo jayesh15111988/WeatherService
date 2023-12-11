@@ -20,15 +20,12 @@ allow injecting classes for mocking network requests and returning mock data
 ## Source code
 The source code of this framework is publicly available on GitHub at [git@github.com:jayesh15111988/WeatherService.git](https://github.com/jayesh15111988/WeatherService)
 
-### Entry point
-
-
 ### Extensibility
 Framework also supports future extensibility through the following additions
 1. Use of `APIRoute` enum
    Use of this enum allows developers to add new endpoint easily
 
-2. Use of protocol based approach for network requests
+2. Use of protocol-based approach for network requests
   I am using protocol that network service conforms to. Due to protocol usage, it's possible to replace the actual network service implementation by the mock class for testing purpose
 
 
@@ -71,6 +68,12 @@ WeatherService().forecast(with: .locationName(location: "London"), daysInFuture:
     }
 }
 ```
+
+## Key generation for API service
+SDK currently uses the free API service provided by [WeatherAPI](https://www.weatherapi.com/api-explorer.aspx#forecast) to get the weather forecast data. 
+To generate the API access key, please visit the [login page](https://www.weatherapi.com/login.aspx) to create a new account. 
+Once logged in, visit the [My Account page](https://www.weatherapi.com/my/). Scroll all the way to bottom, accept terms and conditions for generating an API key
+and click the "Regenerate Key" button to generate a new API key.
 
 ## Third-party libraries
 The SDK does not use any third-party library. 
