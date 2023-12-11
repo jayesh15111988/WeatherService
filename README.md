@@ -5,7 +5,7 @@
 API only downloads temperature data but can be extended to include other weather parameters such as rain, snowfall and wind speed
 
 ## Users
-The users of this framework will be able to use this SDK in their app by adding git@github.com:jayesh15111988/WeatherService.git URL as a dependency to their respective projects
+The users of this framework will be able to use this SDK in their app by adding [git@github.com:jayesh15111988/WeatherService.git](https://github.com/jayesh15111988/WeatherService) URL as a dependency to their respective projects
 
 ## Current version
 The latest version of SDK is 1.0
