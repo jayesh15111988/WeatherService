@@ -4,9 +4,8 @@
 
 ## Overview
 
-`WeatherService` is an SDK modeled as a Swift package that allows users to fetch weather information from the weather API. In the current state, 
-
-API only downloads temperature data but can be extended to include other weather parameters such as rain, snowfall, and wind speed
+`WeatherService` is an SDK modeled as a Swift package that allows users to fetch weather information from the weather API. 
+In the current state,  API only downloads temperature data but can be extended to include other weather parameters such as rain, snowfall, and wind speed
 
 
 
@@ -18,21 +17,17 @@ The users of this framework will be able to use this SDK in their app by adding 
 
 ## Current version
 
-The latest version of SDK is 1.0
+The latest version of SDK is 2.0.1
 
 
 
 ## Architecture
 
-The SDK uses native `URLSession` API to download network data. To make API suitable for extension, I have added an extensible enum `APIRoute` that can be updated with new enum cases corresponding to 
-
-extra URL endpoints. SDK uses `Codable` protocol to decode incoming JSON into local models which clients can process as per their needs.
+The SDK uses native `URLSession` API to download network data. To make API suitable for extension, I have added an extensible enum `APIRoute` that can be updated with new enum cases corresponding to extra URL endpoints. SDK uses `Codable` protocol to decode incoming JSON into local models which clients can process as per their needs.
 
 
 
-I am using protocol-based approach to build the network service. The class for handling network requests conforms to a protocol. During testing, it is possible to create a mock class that conforms to this protocol and will
-
-allow injecting classes for mocking network requests and returning mock data
+I am using protocol-based approach to build the network service. The class for handling network requests conforms to a protocol. During testing, it is possible to create a mock class that conforms to this protocol and will allow injecting classes for mocking network requests and returning mock data
 
 
 
@@ -46,13 +41,13 @@ The source code of this framework is publicly available on GitHub at [git@github
 
 Framework also supports future extensibility through the following additions
 
-1. Use of `APIRoute` enum
+### 1. Use of `APIRoute` enum
 
   The use of this enum allows developers to add new endpoints easily
 
 
 
-2. Use of protocol-based approach for network requests
+### 2. Use of protocol-based approach for network requests
 
  I am using a protocol that the network service conforms to. Due to protocol usage, it's possible to replace the actual network service implementation by the mock class for testing purpose
 
@@ -102,7 +97,7 @@ import WeatherService
 
 ### Using `WeatherService` framework
 
-`WeatherService` public APIs take location details as input and return weather information at that place. The input is specified either in terms of coordinates or the name of the location
+`WeatherService` public APIs take location details as input and return weather information at that place in the form of completion closure. The input is specified either in terms of coordinates or the name of the location
 
 
 
