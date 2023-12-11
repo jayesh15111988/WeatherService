@@ -10,17 +10,23 @@ public final class WeatherService {
         category: String(describing: WeatherService.self)
     )
 
-    private let networkService: RequestHandling
-    private let localModelsCreator: LocalModelsCreator
+    private(set) var networkService: RequestHandling
+    let localModelsCreator: LocalModelsCreator
 
     public init() {
         self.networkService = RequestHandler()
         self.localModelsCreator = LocalModelsCreator()
     }
 
+    //For unit testing. Only to be called from unit test
+    func replaceExistingNetworkService(with newNetworkService: RequestHandling) {
+        self.networkService = newNetworkService
+    }
+
     /// A method to download current and forecast weather details
     /// - Parameters:
     ///   - input: A kind of input passed for fetching the forecast details at location
+    ///   - daysInFuture: Count of how many days in future you want to get forecast for
     ///   - completion: A completion block with downloaded WSWeatherData object and error if any
     public func forecast(with input: WeatherForecastInput, daysInFuture: Int, completion: @escaping (Result<WSWeatherData, DataLoadError>) -> Void) {
 
