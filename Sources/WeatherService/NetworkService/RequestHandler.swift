@@ -14,6 +14,7 @@ public enum DataLoadError: Error {
     case malformedContent
     case invalidResponseCode(Int)
     case decodingError(String)
+    case internetUnavailable
 
     public func errorMessageString() -> String {
         switch self {
@@ -29,6 +30,8 @@ public enum DataLoadError: Error {
             return "Server returned invalid response code. Expected 200. Server returned \(code)"
         case let .decodingError(message):
             return message
+        case .internetUnavailable:
+            return "Your internet connection seems to be offline. Please check the connection and try again"
         }
     }
 }
@@ -46,6 +49,11 @@ final class RequestHandler: RequestHandling {
     func request<T: Decodable>(type: T.Type, route: APIRoute, completion: @escaping (Result<T, DataLoadError>) -> Void) {
 
         let task = urlSession.dataTask(with: route.asRequest()) { (data, response, error) in
+
+            if let nsError = (error as? NSError), URLError.Code(rawValue: nsError.code) == .notConnectedToInternet {
+                completion(.failure(.internetUnavailable))
+                return
+            }
 
             if let error = error {
                 completion(.failure(.genericError(error.localizedDescription)))
