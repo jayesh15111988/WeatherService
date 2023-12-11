@@ -20,11 +20,11 @@ public final class WeatherService {
 
     /// A method to download current and forecast weather details
     /// - Parameters:
-    ///   - input: A kind of input passed for fetching temperature details at location
+    ///   - input: A kind of input passed for fetching the forecast details at location
     ///   - completion: A completion block with downloaded WSWeatherData object and error if any
-    public func forecastAndCurrentTemperature(for input: WeatherForecastInput, forecastDays: Int, completion: @escaping (Result<WSWeatherData, DataLoadError>) -> Void) {
+    public func forecast(with input: WeatherForecastInput, daysInFuture: Int, completion: @escaping (Result<WSWeatherData, DataLoadError>) -> Void) {
 
-        self.networkService.request(type: WeatherData.self, route: .weatherForecast(input: input, forecastDays: forecastDays)) { [weak self] result in
+        self.networkService.request(type: WeatherData.self, route: .weatherForecast(input: input, forecastDays: daysInFuture)) { [weak self] result in
 
             guard let self else {
                 Self.logger.error("self is prematurely deallocated from WeatherService class")
@@ -36,7 +36,7 @@ public final class WeatherService {
             case .success(let weatherData):
                 completion(.success(self.localModelsCreator.getCurrentAndForecastWeatherData(from: weatherData)))
             case .failure(let failure):
-                Self.logger.info("Failed to fetch data for temperature forecast. Failed with \(failure.errorMessageString())")
+                Self.logger.info("Failed to fetch data for weather forecast. Failed with \(failure.errorMessageString())")
                 completion(.failure(failure))
             }
         }
