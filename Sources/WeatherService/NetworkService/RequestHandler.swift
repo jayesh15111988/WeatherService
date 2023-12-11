@@ -57,7 +57,8 @@ public final class RequestHandler: RequestHandling {
         let task = urlSession.dataTask(with: route.asRequest()) { (data, response, error) in
 
             // We check if the request failed due to network unavailability
-            if let nsError = (error as? NSError), URLError.Code(rawValue: nsError.code) == .notConnectedToInternet {
+            // We will check three conditions - cannot find host, cannot connect to host and not connected to internet
+            if let nsError = (error as? NSError), [.notConnectedToInternet, .cannotConnectToHost, .cannotFindHost ].contains(URLError.Code(rawValue: nsError.code)) {
                 completion(.failure(.internetUnavailable))
                 return
             }
