@@ -25,8 +25,7 @@ public enum WeatherForecastInput {
 /// An enum to encode all the operations associated with specific endpoint
 enum APIRoute {
 
-    case weatherForecast(input: WeatherForecastInput)
-    case currentWeather(input: WeatherForecastInput)
+    case weatherForecast(input: WeatherForecastInput, forecastDays: Int)
 
     private var baseURLString: String { "https://api.weatherapi.com/v1/" }
 
@@ -35,7 +34,7 @@ enum APIRoute {
 
     private var url: URL? {
         switch self {
-        case .weatherForecast, .currentWeather:
+        case .weatherForecast:
             return URL(string: baseURLString + "forecast.json")
         }
     }
@@ -45,15 +44,10 @@ enum APIRoute {
         var queryItems: [URLQueryItem] = [URLQueryItem(name: "key", value: Self.apiKey)]
 
         switch self {
-        case .weatherForecast(let inputType):
+        case .weatherForecast(let inputType, let forecastDays):
             queryItems.append(contentsOf: [
                 URLQueryItem(name: "q", value: inputType.queryValue),
-                URLQueryItem(name: "days", value: "7")
-            ])
-        case .currentWeather(let inputType):
-            queryItems.append(contentsOf: [
-                URLQueryItem(name: "q", value: inputType.queryValue),
-                URLQueryItem(name: "days", value: "1")
+                URLQueryItem(name: "days", value: "\(forecastDays)")
             ])
         }
         return queryItems
