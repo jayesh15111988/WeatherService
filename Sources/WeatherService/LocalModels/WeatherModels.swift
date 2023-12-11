@@ -7,6 +7,7 @@
 
 import Foundation
 
+/// A structure to encode weather data in final format and sending it over to client
 public struct WSWeatherData {
     public let location: Location
     public let currentTemperature: WSCurrentTemperature

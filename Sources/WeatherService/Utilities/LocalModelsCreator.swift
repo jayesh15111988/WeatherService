@@ -7,11 +7,16 @@
 
 import Foundation
 
+/// An utility to create local weather data models
 final class LocalModelsCreator {
+
     init() {
 
     }
-
+    
+    /// A method to get current and forecast weather data from passed data received from the network
+    /// - Parameter networkWeatherData: A weather data received from the network
+    /// - Returns: An object of type WSWeatherData
     func getCurrentAndForecastWeatherData(from networkWeatherData: WeatherData) -> WSWeatherData {
         let location = networkWeatherData.location
         let currentTemperature = networkWeatherData.current
@@ -31,10 +36,22 @@ final class LocalModelsCreator {
             )
         }
 
-
-        return WSWeatherData(location: .init(name: location.name, country: location.country), currentTemperature: .init(temperatureCelsius: currentTemperature.temperatureCelsius, temperatureFahrenheit: currentTemperature.temperatureFahrenheit, lastUpdateDateTimestamp: currentTemperature.lastUpdatedDateTimestamp, lastUpdateDateTimeString: currentTemperature.lastUpdatedDateString), forecasts: forecasts)
+        return WSWeatherData(
+            location: .init(
+                name: location.name,
+                country: location.country),
+            currentTemperature: .init(
+                temperatureCelsius: currentTemperature.temperatureCelsius,
+                temperatureFahrenheit: currentTemperature.temperatureFahrenheit,
+                lastUpdateDateTimestamp: currentTemperature.lastUpdatedDateTimestamp,
+                lastUpdateDateTimeString: currentTemperature.lastUpdatedDateString),
+            forecasts: forecasts
+        )
     }
-
+    
+    /// A method to get current weather data from passed network object
+    /// - Parameter currentNetworkWeatherData: An object of type CurrentWeatherData representing network weather data
+    /// - Returns: An object of type WSCurrentWeatherData
     func getCurrentWeatherData(from currentNetworkWeatherData: CurrentWeatherData) -> WSCurrentWeatherData {
 
         let location = currentNetworkWeatherData.location

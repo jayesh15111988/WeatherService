@@ -7,6 +7,7 @@
 
 import Foundation
 
+/// An enum to represent various kinds of errors occurred while downloading data from the network
 public enum DataLoadError: Error {
     case badURL
     case genericError(String)
@@ -36,20 +37,26 @@ public enum DataLoadError: Error {
     }
 }
 
-final class RequestHandler: RequestHandling {
+public final class RequestHandler: RequestHandling {
 
     private let urlSession: URLSession
     private let decoder: JSONDecoder
 
-    init(urlSession: URLSession = .shared, decoder: JSONDecoder = JSONDecoder()) {
+    public init(urlSession: URLSession = .shared, decoder: JSONDecoder = JSONDecoder()) {
         self.urlSession = urlSession
         self.decoder = decoder
     }
-
+    
+    /// A method to request network data with route and completion handler
+    /// - Parameters:
+    ///   - type: Type of Decodable object we want to fetch
+    ///   - route: A route for the request
+    ///   - completion: Completion closure containing decodable type and error if any
     func request<T: Decodable>(type: T.Type, route: APIRoute, completion: @escaping (Result<T, DataLoadError>) -> Void) {
 
         let task = urlSession.dataTask(with: route.asRequest()) { (data, response, error) in
 
+            // We check if the request failed due to network unavailability
             if let nsError = (error as? NSError), URLError.Code(rawValue: nsError.code) == .notConnectedToInternet {
                 completion(.failure(.internetUnavailable))
                 return
@@ -71,8 +78,7 @@ final class RequestHandler: RequestHandling {
             }
 
             do {
-                let decoder = JSONDecoder()
-                let responsePayload = try decoder.decode(type.self, from: data)
+                let responsePayload = try self.decoder.decode(type.self, from: data)
                 completion(.success(responsePayload))
             } catch {
                 completion(.failure(.malformedContent))

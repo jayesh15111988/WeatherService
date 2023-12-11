@@ -7,6 +7,7 @@
 import Foundation
 import CoreLocation
 
+/// An enum representing different inputs to API for location details
 public enum WeatherForecastInput {
     case locationName(location: String)
     case coordinates(latitude: CLLocationDegrees, longitude: CLLocationDegrees)
