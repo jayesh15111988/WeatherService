@@ -1,4 +1,0 @@
-module WeatherService {
-    header "/Users/jayeshkawli/Desktop/WeatherService/.build/x86_64-apple-macosx/debug/WeatherService.build/WeatherService-Swift.h"
-    requires objc
-}
