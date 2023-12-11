@@ -20,11 +20,11 @@ final class LocalModelsCreator {
     func getCurrentAndForecastWeatherData(from networkWeatherData: WeatherData) -> WSWeatherData {
         let location = networkWeatherData.location
         let currentTemperature = networkWeatherData.current
-        let forecasts: [WSWeatherData.TemperatureForecast] = networkWeatherData.forecast.forecastday.map { forecastDay -> WSWeatherData.TemperatureForecast in
+        let forecasts: [WSWeatherData.Forecast] = networkWeatherData.forecast.forecastday.map { forecastDay -> WSWeatherData.Forecast in
 
             let forecastData = forecastDay.forecastData
 
-            return WSWeatherData.TemperatureForecast(
+            return WSWeatherData.Forecast(
                 dateTimestamp: forecastDay.dateTimestamp,
                 dateString: forecastDay.dateString,
                 maximumTemperatureCelsius: forecastData.maxTempCelsius,
@@ -40,7 +40,7 @@ final class LocalModelsCreator {
             location: .init(
                 name: location.name,
                 country: location.country),
-            currentTemperature: .init(
+            current: .init(
                 temperatureCelsius: currentTemperature.temperatureCelsius,
                 temperatureFahrenheit: currentTemperature.temperatureFahrenheit,
                 lastUpdateDateTimestamp: currentTemperature.lastUpdatedDateTimestamp,
