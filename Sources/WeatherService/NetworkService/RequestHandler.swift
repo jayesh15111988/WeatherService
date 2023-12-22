@@ -37,7 +37,7 @@ public enum DataLoadError: Error {
     }
 }
 
-public final class RequestHandler: RequestHandling {
+final class RequestHandler: RequestHandling {
 
     private let urlSession: URLSession
     private let decoder: JSONDecoder

@@ -10,17 +10,12 @@ public final class WeatherService {
         category: String(describing: WeatherService.self)
     )
 
-    private(set) var networkService: RequestHandling
-    let localModelsCreator: LocalModelsCreator
+    private let networkService: RequestHandling
+    private let localModelsCreator: LocalModelsCreator
 
     public init() {
         self.networkService = RequestHandler()
         self.localModelsCreator = LocalModelsCreator()
-    }
-
-    //For unit testing. Only to be called from unit test
-    func replaceExistingNetworkService(with newNetworkService: RequestHandling) {
-        self.networkService = newNetworkService
     }
 
     /// A method to download current and forecast weather details

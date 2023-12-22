@@ -9,10 +9,6 @@ import Foundation
 
 /// An utility to create local weather data models
 final class LocalModelsCreator {
-
-    init() {
-
-    }
     
     /// A method to get current and forecast weather data from passed data received from the network
     /// - Parameter networkWeatherData: A weather data received from the network
