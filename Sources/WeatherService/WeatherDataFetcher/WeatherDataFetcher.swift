@@ -2,19 +2,19 @@
 import Foundation
 import OSLog
 
-/// A public interface to request and fetch weather information by location name or the coordinates
-public final class WeatherService {
+/// An interface to request and fetch weather information by location name or the coordinates
+final class WeatherDataFetcher: WeatherServiceable {
 
     static let logger = Logger(
         subsystem: Bundle.main.bundleIdentifier!,
-        category: String(describing: WeatherService.self)
+        category: String(describing: WeatherDataFetcher.self)
     )
 
     private let networkService: RequestHandling
     private let localModelsCreator: LocalModelsCreator
 
-    public init() {
-        self.networkService = RequestHandler()
+    init(networkService: RequestHandling = RequestHandler()) {
+        self.networkService = networkService
         self.localModelsCreator = LocalModelsCreator()
     }
 
@@ -23,7 +23,11 @@ public final class WeatherService {
     ///   - input: A kind of input passed for fetching the forecast details at location
     ///   - daysInFuture: Count of how many days in future you want to get forecast for
     ///   - completion: A completion block with downloaded WSWeatherData object and error if any
-    public func forecast(with input: WeatherForecastInput, daysInFuture: Int, completion: @escaping (Result<WSWeatherData, DataLoadError>) -> Void) {
+    func forecast(
+        with input: WeatherForecastInput,
+        daysInFuture: Int,
+        completion: @escaping (Result<WSWeatherData, DataLoadError>
+        ) -> Void) {
 
         self.networkService.request(type: WeatherData.self, route: .weatherForecast(input: input, forecastDays: daysInFuture)) { [weak self] result in
 
