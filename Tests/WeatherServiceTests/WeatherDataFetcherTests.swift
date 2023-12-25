@@ -8,17 +8,16 @@
 import XCTest
 @testable import WeatherService
 
-final class WeatherServiceTests: XCTestCase {
+final class WeatherDataFetcherTests: XCTestCase {
 
-    private var weatherService: WeatherService!
+    private var weatherService: WeatherDataFetcher!
 
     override func setUp() {
         super.setUp()
     }
 
     func testThatWeatherServiceCorrectlyHandlesTheSuccessResponse() {
-        self.weatherService = WeatherService()
-        self.weatherService.replaceExistingNetworkService(with: RequestHandlerMock())
+        self.weatherService = WeatherDataFetcher(networkService: RequestHandlerMock())
 
         weatherService.forecast(with: .locationName(location: "London"), daysInFuture: 7) { result in
             switch result {
@@ -41,8 +40,7 @@ final class WeatherServiceTests: XCTestCase {
         let requestHandler = RequestHandlerMock()
         requestHandler.toFail = true
 
-        self.weatherService = WeatherService()
-        self.weatherService.replaceExistingNetworkService(with: requestHandler)
+        self.weatherService = WeatherDataFetcher(networkService: requestHandler)
 
         self.weatherService.forecast(with: .locationName(location: "London"), daysInFuture: 7) { result in
             switch result {
