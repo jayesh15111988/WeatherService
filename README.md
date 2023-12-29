@@ -11,7 +11,7 @@ The users of this framework will be able to use this SDK in their app by adding 
 
 ## Current version
 
-The latest version of SDK is 2.0.1
+The latest version of SDK is 2.0.2
 
 ## Architecture
 
