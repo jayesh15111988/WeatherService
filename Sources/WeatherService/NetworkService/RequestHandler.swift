@@ -7,7 +7,7 @@
 
 import Foundation
 
-/// An enum to represent various kinds of errors occurred while downloading data from the network
+/// An enum to represent various kinds of errors occurred while getting data from the network
 public enum DataLoadError: Error {
     case badURL
     case genericError(String)

@@ -7,7 +7,7 @@
 
 import Foundation
 
-/// An utility to format date and time
+/// An utility to format date and time with specified format
 final class DateTimeFormatter {
 
     static let weatherAPIDateFormatter: DateFormatter = {

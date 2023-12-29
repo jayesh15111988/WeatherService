@@ -7,6 +7,7 @@
 
 import Foundation
 
+/// A protocol that network service conforms to and can be used during unit testing
 public protocol WeatherServiceable: AnyObject {
     func forecast(
         with input: WeatherForecastInput,
@@ -15,6 +16,7 @@ public protocol WeatherServiceable: AnyObject {
         ) -> Void)
 }
 
+/// A shared instance of WeatherService used to fetch network data
 public final class WeatherService {
 
     public static let shared: WeatherServiceable = WeatherDataFetcher()

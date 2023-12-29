@@ -33,16 +33,20 @@ final class WeatherDataFetcher: WeatherServiceable {
 
             guard let self else {
                 Self.logger.error("self is prematurely deallocated from WeatherService class")
-                completion(.failure(.genericError("Class is unexpectedly removed from the memory. Please try again")))
+                completion(.failure(.genericError("Current instance has been unexpectedly removed from the memory. Please try again")))
                 return
             }
 
             switch result {
             case .success(let weatherData):
+
                 completion(.success(self.localModelsCreator.getCurrentAndForecastWeatherData(from: weatherData)))
+
             case .failure(let failure):
+
                 Self.logger.info("Failed to fetch data for weather forecast. Failed with \(failure.errorMessageString())")
                 completion(.failure(failure))
+
             }
         }
     }
